@@ -8,13 +8,15 @@
   color:rgb(255, 205, 67);
   font-size: 14px;
   font-weight: 600;
+  margin-left: 1.2rem;
 }
 
 #cardsContainer {
-  margin: 3rem 1rem 2rem 1rem;
+  margin: 3rem 3rem 2rem 1rem;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 1rem;
+  grid-row-gap: 3rem;
+  grid-column-gap: 2rem;
   grid-auto-rows: minmax(200px, 200px);
   grid-auto-columns: minmax(200px, 200px);
 }
@@ -32,6 +34,11 @@
 .cardAnchorTag {
   width: 280px;
   text-decoration: none;
+}
+
+.prev-next-anchor-tag {
+  text-decoration: none;
+  color:black;
 }
 
 .cardHeader {
@@ -71,55 +78,55 @@
 }
 
 .fire {
-  background-color: rgb(255, 205, 67);
+  background-color: rgb(255, 214, 200);
 }
 
 .water {
-  background-color: aquamarine;
+  background-color: rgb(219, 255, 243);
 }
 
 .grass {
-  background-color: rgb(193, 255, 101);
+  background-color: rgb(233, 255, 201);
 }
 
 .electric {
-  background-color: yellow;
+  background-color: rgb(255, 255, 193);
 }
 
 .normal {
-  background-color: blanchedalmond;
+  background-color: rgb(255, 237, 211);
 }
 
 .ghost {
-  background-color: rgb(181, 102, 255);
+  background-color: rgb(227, 197, 255);
 }
 
 .bug {
-  background-color: rgb(255, 252, 86);
+  background-color: rgb(255, 243, 192);
 }
 
 .poison {
-  background-color: rgb(95, 72, 117);
+  background-color: rgb(245, 233, 255);
 }
 
 .ground {
-  background-color: rgb(135, 96, 70);
+  background-color: rgb(238, 199, 173);
 }
 
 .fairy {
-  background-color: rgb(240, 164, 250);
+  background-color: rgb(252, 225, 255);
 }
 
 .fighting {
-  background-color: rgb(204, 52, 52);
+  background-color: rgb(255, 202, 202);
 }
 
 .psychic {
-  background-color: rgb(107, 122, 226);
+  background-color: rgb(185, 190, 221);
 }
 
 .rock {
-  background-color: rgb(198, 198, 198);
+  background-color: rgb(235, 235, 235);
 }
 
 .ice {
@@ -127,11 +134,11 @@
 }
 
 .dragon {
-  background-color: rgb(255, 166, 0);
+  background-color: rgb(232, 226, 213);
 }
 
 .dark {
-  background-color: rgb(78, 53, 98);
+  background-color: rgb(240, 237, 237);
 }
 
 .steel {

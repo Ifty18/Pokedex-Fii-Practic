@@ -1,6 +1,6 @@
 const Card = function Card( pokemon ) { 
   //storing the name of the pokemon
-  const name = pokemon.pokemon.name;
+  const name = pokemon.pokemon.name.charAt(0).toUpperCase() + pokemon.pokemon.name.slice(1);
   //we have to see if the card can be shown or not
   let display = "visible";
   // if ((text !== "") && (name.toLowerCase().search(text) === -1) && (pokemon.pokemon.types[0].type.name.toLowerCase().search(text) === -1)){

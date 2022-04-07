@@ -1,17 +1,17 @@
 import { Route, Routes, BrowserRouter, Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import TitleBar from "./TitleBar.jsx";
-// import pokemons from '../data/data.json';
 import { useEffect, useState } from "react";
 import axios from "axios";
+import RotateLoader from "react-spinners/RotateLoader";
+import { motion } from 'framer-motion';
 
 
 const Pokemon = function Pokemon( props ) {
   const param = useParams(); //param stores the id of the pokemon. We will use it to search for the respective pokemon in the JSON file
   let selectedPokemonId = param.pokemonId;
-  let pokemonIndex; // it will store the index of the pokemon in the data.json file (if the pokemon id is valid);
   let found = false; // the value changes to true when a pokemon with the respective id is found
-
+  
 
   // for ( let index in pokemons ){ // parsing the pokemons list
   //     if(pokemons[index].id.toString() === selectedPokemonId.toString()){
@@ -23,29 +23,68 @@ const Pokemon = function Pokemon( props ) {
   //     }
   //   }
 
+  //TODO 898
+  // if ( param.pokemonId >= 900 ) {
+  //   return (
+  //     <div >
+  //       <Link to="/" className="cardAnchorTag"> <h1 id="pokemon-does-not-exist-message">Pokemon does not exist. Go back to homepage</h1> </Link>
+  //       <img id="snorlax" alt="snorlax error page" src="https://dazzling-panini-599909.netlify.app/static/media/snorlax_404.116af90a27db7b4bead3.png"></img>
+  //     </div>
+  //   );
+  //  }
+    const [prevPokemon, setPrevPokemon] = useState(null);
+    const [nextPokemon, setNextPokemon] = useState(null);
+    const [secondPokemonData, setSecondPokemonData] = useState(null);
+    const [pokemonDescription, setPokemonDescription] = useState(null);
     const [pokemonId, setPokemonId] = useState(null);
     const [pokemonName, setPokemonName] = useState(null);
     const [pokemonData, setPokemonData] = useState(null);
     const [loading, setLoading] = useState(true);
+
     useEffect(() => {
+
       setLoading(true);
       const fetchData = async () => {
         const result = await axios("https://pokeapi.co/api/v2/pokemon/" + param.pokemonId);
-  
-       console.log(result.data);
+        // let nextId
+        // if(parseInt(param.pokemonId)-1 !== 0) {
 
-      //  if (! result.data ) {
-      //   return (
-      //     <div >
-      //       <Link to="/" className="cardAnchorTag"> <h1 id="pokemon-does-not-exist-message">Pokemon does not exist. Go back to homepage</h1> </Link>
-      //       <img id="snorlax" alt="snorlax error page" src="https://dazzling-panini-599909.netlify.app/static/media/snorlax_404.116af90a27db7b4bead3.png"></img>
-      //     </div>
-      //   );
-      //  }
+          // setPrevPokemon(prevPokemon);
+          try {
+            let pvPokemon = await axios("https://pokeapi.co/api/v2/pokemon/" + ( parseInt(param.pokemonId)-1 ));
+            console.log(param.pokemonId);
+            console.log(pvPokemon.data.name);
+            pvPokemon = "https://img.pokemondb.net/sprites/black-white/anim/normal/" + pvPokemon.data.name + ".gif";
+            console.log(pvPokemon);
+            
+            setPrevPokemon(pvPokemon);
+          } catch {
+            
+          }
+        
+        try {
+          let nextPokemon = await axios("https://pokeapi.co/api/v2/pokemon/" + ( parseInt(param.pokemonId)+1 ));
+          nextPokemon = "https://img.pokemondb.net/sprites/black-white/anim/normal/" + nextPokemon.data.name + ".gif";
+        // setPrevPokemon(prevPokemon);
+          setNextPokemon(nextPokemon);
+        } catch {
 
-       setPokemonData(result.data);
-       setPokemonName(result.data.name);
-       setPokemonId(BeautifyId(result.data.id));
+        }
+        
+      //  console.log(result.data);
+     
+        setPokemonData(result.data);
+        setPokemonName(result.data.name.charAt(0).toUpperCase() + result.data.name.slice(1));
+        setPokemonId(BeautifyId(result.data.id));
+        const descriptionUrl = result.data.species.url;
+        // console.log(descriptionUrl);
+        const secondPokemonApi = await axios("" + descriptionUrl);
+        // console.log(secondPokemonApi.data.flavor_text_entries[0]);
+        // console.log(secondPokemonApi.data.flavor_text_entries[0].flavor_text);
+        const finalDescription = secondPokemonApi.data.flavor_text_entries[0].flavor_text.replace(/[^a-zA-Z.é' ]/g, " ") + " " + secondPokemonApi.data.flavor_text_entries[2].flavor_text.replace(/[^a-zA-Z.é' ]/g, " ") + " " + secondPokemonApi.data.flavor_text_entries[3].flavor_text.replace(/[^a-zA-Z.é' ]/g, " ");
+        // console.log(finalDescription);
+        setPokemonDescription(finalDescription);
+        setSecondPokemonData(secondPokemonApi.data);
        setLoading(false);
       };
 
@@ -111,7 +150,7 @@ const Pokemon = function Pokemon( props ) {
       </div>
     );
   }
-
+  // console.log(pokemonData);
   // function PokemonEvolutions (){
   //   let threeEvolutions = false;
   //   let ev1Name;
@@ -219,18 +258,23 @@ const Pokemon = function Pokemon( props ) {
   //     );
   //   }
   // }
-
-
+  // console.log(secondPokemonData);
+// return (
+//   <div className="rotateLoader">
+//     <RotateLoader className="dots" color={"#FAB003"} size={32} margin={40} />
+//   </div>
+// );
 
   return (
     <div id="App">
-      
-      <Link to="/" className="cardAnchorTag"><TitleBar /></Link>
-      {/* <p className="paragraphTest">{param.pokemonId}</p> */}
-      { loading ? ( <h1>Loading...</h1> ) : ( 
+      { loading ? ( 
+        <div className="rotateLoader">
+          <RotateLoader color={"#FAB003"} size={32} margin={40} />
+        </div> ) : (
         <div className="center-wrapper">
+          <Link to="/" className="cardAnchorTag"><TitleBar /></Link>
           <div id="page-top-side">
-            <div id="big-left-card" className={`${pokemonData.types[0].type.name}`}>
+            <motion.div initial={{ opacity:0 }} animate={{ opacity:1 }} whileHover={{ scale:1.01 }} transition={{duration:0.3}} id="big-left-card" className={`${pokemonData.types[0].type.name}`}>
               <div id="details-card-header" className="inline-attributes">
                 <div>
                   <h2 id="details-pokemon-name"> {pokemonName} </h2>
@@ -243,87 +287,122 @@ const Pokemon = function Pokemon( props ) {
                 </div>
               </div>
               <div>
-                {loading ? ( <h1>Loading...</h1>) : (
                 <img src={pokemonData.sprites.other["official-artwork"].front_default} id="pokemon-details-big-picture" alt="pokemon-big"></img>
-                )}
-                </div>
-              <div id="left-big-card-footer">
-                <p className="footer-paragraph">this</p>
-                <p className="footer-paragraph">pokemon</p>
-                <p className="footer-paragraph">is</p>
-                <p className="footer-paragraph">really</p>
-                <p className="footer-paragraph">amazing</p>
               </div>
-              
-            </div>
+            </motion.div>
             <div id="right-top-side">
-              <div id="text-box">
-                <h2>
-                  Description
-                </h2>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad ut minus ipsum repudiandae consequuntur corrupti maiores, autem qui eum iste molestiae unde quas, quis distinctio perferendis inventore perspiciatis et! Harum?
-                </p>
-              </div>
-              <div id="stats-box" className={`${pokemonData.types[0].type.name}`}>
+              <motion.div initial={{ opacity:0 }} animate={{ opacity:1 }} whileHover={{ scale:1.01 }} transition={{duration:0.3}} id="text-box" className={`${pokemonData.types[0].type.name}`}>
+                <div className="text-box-wrapper">
+                  <h2>
+                    Description
+                  </h2>
+                  <p className="text-font">
+                    {pokemonDescription}
+                  </p>
+                </div>
+              </motion.div>
+              <motion.div initial={{ opacity:0 }} animate={{ opacity:1 }} whileHover={{ scale:1.02 }} transition={{duration:0.3}} id="stats-box" className={`${pokemonData.types[0].type.name}`}>
+                <h2 id="stats-title">Stats</h2>
                 <div className="stat-bar-wrapper">
                   <h4 className="stat-bar-title">HP</h4>
-                  <div className="stat-bar-line"><div className="bar bar1"></div></div>
-                  <h4 className="stat-bar-value">124</h4>
+                  <div className="stat-bar-line"><motion.div whileHover={{rotate: 10}} className="bar bar1" style={{ width : pokemonData.stats[0].base_stat*1.2 }}></motion.div></div>
+                  <h4 className="stat-bar-value">{pokemonData.stats[0].base_stat}</h4>
                 </div>
                 <div className="stat-bar-wrapper">
-                  <h4 className="stat-bar-title">Attack</h4>
-                  <div className="stat-bar-line"><div className="bar bar2"></div></div>
-                  <h4 className="stat-bar-value">69</h4>
+                  <h4 className="stat-bar-title ">Attack</h4>
+                  <div className="stat-bar-line"><motion.div whileHover={{rotate: 10}} className="bar bar2" style={{ width : pokemonData.stats[1].base_stat*1.2 }}></motion.div></div>
+                  <h4 className="stat-bar-value">{pokemonData.stats[1].base_stat}</h4>
                 </div>
                 <div className="stat-bar-wrapper">
                   <h4 className="stat-bar-title">Defense</h4>
-                  <div className="stat-bar-line"><div className="bar bar3"></div></div>
-                  <h4 className="stat-bar-value">255</h4>
-                </div>
-                <div className="stat-bar-wrapper">
-                  <h4 className="stat-bar-title">Speed</h4>
-                  <div className="stat-bar-line"><div className="bar bar4"></div></div>
-                  <h4 className="stat-bar-value">33</h4>
+                  <div className="stat-bar-line"><motion.div whileHover={{rotate: 10}} className="bar bar3" style={{ width : pokemonData.stats[2].base_stat*1.2 }}></motion.div></div>
+                  <h4 className="stat-bar-value">{pokemonData.stats[2].base_stat}</h4>
                 </div>
                 <div className="stat-bar-wrapper">
                   <h4 className="stat-bar-title">Special attack</h4>
-                  <div className="stat-bar-line"><div className="bar bar5"></div></div>
-                  <h4 className="stat-bar-value">85</h4>
+                  <div className="stat-bar-line"><motion.div whileHover={{rotate: 10}} className="bar bar4" style={{ width : pokemonData.stats[3].base_stat*1.2 }}></motion.div></div>
+                  <h4 className="stat-bar-value">{pokemonData.stats[3].base_stat}</h4>
                 </div>
                 <div className="stat-bar-wrapper">
                   <h4 className="stat-bar-title">Special defense</h4>
-                  <div className="stat-bar-line"><div className="bar bar6"></div></div>
-                  <h4 className="stat-bar-value">188</h4>
+                  <div className="stat-bar-line"><motion.div whileHover={{rotate: 10}} className="bar bar5" style={{ width : pokemonData.stats[4].base_stat*1.2 }}></motion.div></div>
+                  <h4 className="stat-bar-value">{pokemonData.stats[4].base_stat}</h4>
                 </div>
-              </div>
-
-              
-              <PokemonEvolutions/>
+                <div className="stat-bar-wrapper">
+                  <h4 className="stat-bar-title">Speed</h4>
+                  <div className="stat-bar-line"><motion.div whileHover={{rotate: 10}} className="bar bar6" style={{ width : pokemonData.stats[5].base_stat*1.2 }}></motion.div></div>
+                  <h4 className="stat-bar-value">{pokemonData.stats[5].base_stat}</h4>
+                </div>
+              </motion.div>
+              {/* <PokemonEvolutions/> */}
 
             </div>
           </div>
-          <div id="page-down-side" className={`${pokemonData.types[0].type.name}`}>
+          <motion.div initial={{ opacity:0 }} animate={{ opacity:1 }} whileHover={{ scale:1.01 }} transition={{duration:0.3}} id="page-down-side" className={`${pokemonData.types[0].type.name}`}>
             <div>
               <h2 id="bottom-card-title">Sprites</h2>
             </div>
             <div id="bottom-card-footer">
               <div>
                 <h3 className="front-back-titles">Front female</h3>
-                <img src={pokemonData.sprites.front_shiny} className="front-back-image" alt="front female"></img>
+                <img src={"https://img.pokemondb.net/sprites/black-white/anim/shiny/" + pokemonData.name + ".gif"} className="front-back-image" alt="front female"></img>
               </div>
               <div>
                 <h3 className="front-back-titles">Back female</h3>
-                <img src={pokemonData.sprites.back_shiny} className="front-back-image" alt="back female"></img>
+                <img src={"https://img.pokemondb.net/sprites/black-white/anim/back-shiny/" + pokemonData.name + ".gif"} className="front-back-image" alt="back female"></img>
               </div>
               <div>
                 <h3 className="front-back-titles">Front male</h3>
-                <img src={pokemonData.sprites.front_default} className="front-back-image" alt="back female"></img>
+                <img src={"https://img.pokemondb.net/sprites/black-white/anim/normal/" + pokemonData.name + ".gif"} className="front-back-image" alt="back female"></img>
               </div>
               <div>
                 <h3 className="front-back-titles">Back male</h3>
-                <img src={pokemonData.sprites.back_default} className="front-back-image" alt="back female"></img>
+                <img src={"https://img.pokemondb.net/sprites/black-white/anim/back-normal/" + pokemonData.name + ".gif"} className="front-back-image" alt="back female"></img>
               </div>
+            </div>
+          </motion.div>
+          <div id="bottom-last-section-wrapper">
+            <div id="bottom-last-section">
+                <motion.div
+                initial={{ opacity:0 }}
+                animate={{ opacity:1 }}
+                whileHover={{ x:-20 }}
+                transition={{duration:0.4}} 
+                id="previous-pokemon" className={`${pokemonData.types[0].type.name}`}>
+
+                  {/* TODO: sa fac anchor tag ul cat cardul, sa fac anchor tag si pentru next pokemon, sa estetizez textul cand nu sunt prev/next pokemons*/}
+                  
+                  { prevPokemon ? (
+                    <a href={"../pokemon/" + (parseInt(param.pokemonId)-1)} className="prev-next-anchor-tag">
+                      <div>
+                        <h3 className="prev-title">
+                        Previous
+                        </h3>
+                        <img src={`${prevPokemon}`} className="front-back-image prev-gif"></img>
+                      </div>
+                    </a>
+                  ) : (<h4>No previous pokemon</h4>)}
+                  
+                </motion.div>
+              
+              <motion.div initial={{ opacity:0 }} animate={{ opacity:1 }} whileHover={{ scale:1.01 }} transition={{duration:0.3}} id="evolution-box" className={`${pokemonData.types[0].type.name}`}>
+                
+              </motion.div>
+              <motion.div
+              initial={{ opacity:0 }}
+              animate={{ opacity:1 }}
+              whileHover={{ x:+20 }}
+              transition={{duration:0.4}}
+              id="next-pokemon" className={`${pokemonData.types[0].type.name}`}>
+                { nextPokemon ? (
+                  <div>
+                    <h3 className="next-title">
+                       Next
+                    </h3>
+                    <img src={`${nextPokemon}`} className="front-back-image next-gif"></img>
+                  </div>
+                ) : (<h4>No more pokemons</h4>)}
+              </motion.div>
             </div>
           </div>
         </div>

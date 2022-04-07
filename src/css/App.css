@@ -4,4 +4,6 @@ html {
 
 #App {
   margin: 2rem 5rem 2rem 5rem;
+  display: flex;
+  justify-content: center;
 }
