@@ -5,6 +5,7 @@ import "./css/SearchBar.css";
 import "./css/CardsContainer.css";
 import "./css/PokemonDetails.css";
 
+
 import StartPage from "./js/StartPage";
 import Pokemon from "./js/Pokemon";
 import { PokemonStoreProvider } from "./store/pokemonsStore";

@@ -75,7 +75,6 @@ const StartPage = function StartPage( pokemon ) {
     setFilteredPokemon(filteredPokemon);
   }
   
-  // console.log(filteredPokemon);
   return (
     <div id="App">
       { loading ? (

@@ -1,14 +1,23 @@
 #load-more-pokemons {
   height: 40px;
-  background-color: rgb(41, 41, 41);
+  background-color: antiquewhite;
   border-radius: 12px;
   border-width: 3px;
   border-style: solid;
-  border-color: rgb(243, 245, 137);
-  color:rgb(255, 205, 67);
+  border-color: rgb(243, 243, 243);
+  color:rgb(26, 26, 26);
   font-size: 14px;
   font-weight: 600;
   margin-left: 1.2rem;
+  font-family: 'Tomorrow', sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+::placeholder {
+  font-family: 'Tomorrow', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
 }
 
 #cardsContainer {
@@ -30,6 +39,14 @@
   border-color: rgb(0, 0, 0);
   border-width: 3px;
 }
+
+.card-pokemon-name-and-id-font {
+  font-family: 'Tomorrow', sans-serif;
+  font-weight:bolder;
+  font-size: 25px;
+}
+
+
 
 .cardAnchorTag {
   width: 280px;
@@ -67,82 +84,158 @@
 }
 
 #attributeBox {
-  /* background-color: blue; */
   background-color: rgba(0, 0, 0, 0.1);
-  color: rgb(34, 34, 34);
+  color: rgb(255, 255, 255);
   border-radius: 15px;
   text-align: center;
   font-size: 25px;
-  height: 40px;
-  width: 100px;
+  height: 35px;
+  width: 110px;
+  font-weight: 200;
 }
 
 .fire {
-  background-color: rgb(255, 214, 200);
+  background-color: rgb(255, 229, 220);
+}
+
+#attributeBox.fire2 {
+  background-color: rgb(239, 39, 27);
 }
 
 .water {
   background-color: rgb(219, 255, 243);
 }
 
+#attributeBox.water2 {
+  background-color: rgb(67, 97, 238);
+}
+
 .grass {
   background-color: rgb(233, 255, 201);
 }
 
+#attributeBox.grass2 {
+  background-color: rgb(22, 193, 114);
+}
+
+.flying {
+  background-color: rgb(219, 255, 243);
+}
+
+#attributeBox.flying2 {
+  background-color: rgb(139, 156, 173);
+}
+
 .electric {
-  background-color: rgb(255, 255, 193);
+  background-color: rgb(255, 255, 201);
+}
+
+#attributeBox.electric2 {
+  background-color: rgb(255, 191, 0);
 }
 
 .normal {
-  background-color: rgb(255, 237, 211);
+  background-color: rgb(245, 225, 255);
+}
+
+#attributeBox.normal2 {
+  background-color: rgb(193, 140, 186);
 }
 
 .ghost {
   background-color: rgb(227, 197, 255);
 }
 
+#attributeBox.ghost2 {
+  background-color: rgb(154, 84, 161);
+}
+
 .bug {
-  background-color: rgb(255, 243, 192);
+  background-color: rgb(209, 255, 208);
+}
+
+#attributeBox.bug2 {
+  background-color: rgb(5, 150, 105);
 }
 
 .poison {
   background-color: rgb(245, 233, 255);
 }
 
+#attributeBox.poison2 {
+  background-color: rgb(110, 68, 255);
+}
+
 .ground {
-  background-color: rgb(238, 199, 173);
+  background-color: rgb(240, 215, 199);
+}
+
+#attributeBox.ground2 {
+  background-color: rgb(136, 86, 41);
 }
 
 .fairy {
   background-color: rgb(252, 225, 255);
 }
 
+#attributeBox.fairy2 {
+  background-color: rgb(238, 66, 104);
+}
+
 .fighting {
-  background-color: rgb(255, 202, 202);
+  background-color: rgb(255, 219, 202);
+}
+
+#attributeBox.fighting2 {
+  background-color: rgb(199, 80, 0);
 }
 
 .psychic {
-  background-color: rgb(185, 190, 221);
+  background-color: rgb(255, 227, 255);
+}
+
+#attributeBox.psychic2 {
+  background-color: rgb(219, 0, 182);
 }
 
 .rock {
-  background-color: rgb(235, 235, 235);
+  background-color: rgb(224, 186, 179);
+}
+
+#attributeBox.rock2 {
+  background-color: rgb(99, 50, 11);
 }
 
 .ice {
-  background-color: rgb(196, 255, 255);
+  background-color: rgb(236, 255, 255);
+}
+
+#attributeBox.ice2 {
+  background-color: rgb(144, 224, 239);
 }
 
 .dragon {
-  background-color: rgb(232, 226, 213);
+  background-color: rgb(213, 230, 232);
+}
+
+#attributeBox.dragon2 {
+  background-color: rgb(46, 196, 182);
 }
 
 .dark {
-  background-color: rgb(240, 237, 237);
+  background-color: rgb(241, 241, 241);
+}
+
+#attributeBox.dark2 {
+  background-color: rgb(67, 70, 73);
 }
 
 .steel {
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(234, 255, 245);
+}
+
+#attributeBox.steel2 {
+  background-color: rgb(115, 226, 167);
 }
 
 .visible {
