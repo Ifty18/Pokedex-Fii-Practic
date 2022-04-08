@@ -100,7 +100,7 @@ const Pokemon = function Pokemon( props ) {
       };
 
       fetchData();
-    }, []);
+    }, [param]);
 
 
   function BeautifyId (id){
@@ -145,7 +145,7 @@ const Pokemon = function Pokemon( props ) {
         {
           pokemonEvolutions.map( item => {
             return(
-            <a href={"../pokemon/" + `${item.cleanId}`}>
+            <Link to={"../pokemon/" + `${item.cleanId}`}>
               <div className="individual-evolution">
                 <div>
                   <h3 className="evolutions-names regular-text-font-style bolder">
@@ -158,7 +158,7 @@ const Pokemon = function Pokemon( props ) {
                   
                 </div>
               </div>
-            </a>
+            </Link>
             );
           })
         }
@@ -271,14 +271,14 @@ const Pokemon = function Pokemon( props ) {
                 transition={{duration:0.4}}
                 id="previous-pokemon" className={`${pokemonData.types[0].type.name}`}>
                   { prevPokemon ? (
-                    <a href={"../pokemon/" + (parseInt(param.pokemonId)-1)} className="prev-next-anchor-tag">
+                    <Link to={"/pokemon/" + (parseInt(param.pokemonId)-1)} className="prev-next-anchor-tag">
                       <div className="anchor-tag-surface">
                         <h3 className="prev-title regular-text-font-style ultra-bold">
                         Previous
                         </h3>
                         <img src={`${prevPokemon}`} alt="previous pokemon" className="front-back-image prev-gif"></img>
                       </div>
-                    </a>
+                    </Link>
                   ) : (<h4 className="no-prev-pokemon-found-error regular-text-font-style bolder">No previous pokemon</h4>)}  
                 </motion.div>
 
@@ -298,14 +298,14 @@ const Pokemon = function Pokemon( props ) {
               transition={{duration:0.4}}
               id="next-pokemon" className={`${pokemonData.types[0].type.name}`}>
                 { nextPokemon ? (
-                  <a href={"../pokemon/" + (parseInt(param.pokemonId)+1)} className="prev-next-anchor-tag">
+                  <Link to={"/pokemon/" + (parseInt(param.pokemonId)+1)} className="prev-next-anchor-tag">
                     <div className="anchor-tag-surface">
                       <h3 className="next-title regular-text-font-style ultra-bold">
                         Next
                       </h3>
                       <img src={`${nextPokemon}`} className="front-back-image next-gif"></img>
                     </div>
-                  </a>
+                  </Link>
                 ) : (<h4 className="no-next-pokemon-found-error regular-text-font-style bolder">No more pokemons</h4>)}
               </motion.div>
             </div>

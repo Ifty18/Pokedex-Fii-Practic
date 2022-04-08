@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Card = function Card( pokemon ) { 
   //storing the name of the pokemon
   const name = pokemon.pokemon.name.charAt(0).toUpperCase() + pokemon.pokemon.name.slice(1);
@@ -46,7 +48,7 @@ const Card = function Card( pokemon ) {
   let color = pokemon.pokemon.types[0].type.name;
   
   return (
-  <a href={"pokemon/" + rawid} className="cardAnchorTag">
+  <Link to={"/pokemon/" + rawid} className="cardAnchorTag">
     <div className={`card ${color} ${display}`} id="card1">
       <div className="cardHeader cardUpperText">
         <h2 className="card-pokemon-name-and-id-font">{name}</h2>
@@ -57,7 +59,7 @@ const Card = function Card( pokemon ) {
         <img src={image} id="image" alt="pokemon"></img>
       </div>
     </div>
-  </a>
+  </Link>
   );
 };
 
